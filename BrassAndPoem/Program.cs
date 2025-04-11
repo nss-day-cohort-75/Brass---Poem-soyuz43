@@ -256,4 +256,4 @@
             Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
         }
     }
-}
+}
