@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/BrassAndPoem/bin/Debug/net6.0/BrassAndPoem.dll",
+            "program": "${workspaceFolder}/BrassAndPoem/bin/Debug/net8.0/BrassAndPoem.dll",
             "args": [],
             "cwd": "${workspaceFolder}/BrassAndPoem",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
