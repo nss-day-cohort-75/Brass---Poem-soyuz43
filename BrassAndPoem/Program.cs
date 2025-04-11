@@ -58,11 +58,11 @@
     // Method implementations
     public static void DisplayMenu()
     {
-        Console.WriteLine("1. Display all products");
-        Console.WriteLine("2. Delete a product");
-        Console.WriteLine("3. Add a new product");
-        Console.WriteLine("4. Update product properties");
-        Console.WriteLine("5. Exit");
+        Console.WriteLine("1. Display all products\n\r");
+        Console.WriteLine("2. Delete a product\n\r");
+        Console.WriteLine("3. Add a new product\n\r");
+        Console.WriteLine("4. Update product properties\n\r");
+        Console.WriteLine("5. Exit\n\r");
     }
 
     public static void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
@@ -215,34 +215,34 @@
             DisplayProductTypes(productTypes);
             Console.Write($"New type [Current: {product.ProductTypeId}]: ");
 
-            const int maxAttempts = 3;
-            int attempts = 0;
-            int typeNumber = 0;
+            const int maxPriceAttempts = 3;
+            int priceAttempts = 0;
 
-            while (attempts < maxAttempts)
+            while (priceAttempts < maxPriceAttempts)
             {
-                string? input = Console.In.Peek() == -1 ? null : Console.ReadLine();
-                if (input == null)
-                {
-                    Console.WriteLine("No input detected. Cancelling update.");
-                    return;
-                }
+                Console.Write($"New price [{product.Price}]: ");
+                string? priceInput = Console.ReadLine();
 
-                if (int.TryParse(input, out typeNumber) && typeNumber > 0 && typeNumber <= productTypes.Count)
+                if (string.IsNullOrWhiteSpace(priceInput))
                 {
-                    product.ProductTypeId = productTypes[typeNumber - 1].Id;
+                    Console.WriteLine("Keeping current price.");
                     break;
                 }
-                else
+
+                if (decimal.TryParse(priceInput, out price) ||
+                    decimal.TryParse(priceInput.Replace(",", "."), out price))
                 {
-                    Console.WriteLine("Invalid product type. Please try again.");
-                    attempts++;
+                    product.Price = price;
+                    break;
                 }
+
+                Console.WriteLine("Invalid price format. Please try again.");
+                priceAttempts++;
             }
 
-            if (attempts >= maxAttempts)
+            if (priceAttempts >= maxPriceAttempts)
             {
-                Console.WriteLine("Too many failed attempts. Type not updated.");
+                Console.WriteLine("Too many failed attempts. Price update cancelled.");
             }
 
         }
@@ -256,4 +256,4 @@
             Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
         }
     }
-}
+}
